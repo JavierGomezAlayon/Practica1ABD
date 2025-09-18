@@ -15,9 +15,11 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 1. Crear dos usuarios:
 	- Comando
 	```
- 
+ 	CREATE USER admin_biblio WITH PASSWORD '123';
+	CREATE USER usuario_biblio WITH PASSWORD '123';
 	```
-	- Respuesta
+	- Respuesta (misma respuesta para ambos comandos)
+	<img width="154" height="21" alt="image" src="https://github.com/user-attachments/assets/4c1baa81-fd70-4209-bbbc-a66c3754af69" />
 
 2. Crear un rol llamado lectores con permisos únicamente de consulta sobre todas las tablas de la base de datos.
 	- Comando
