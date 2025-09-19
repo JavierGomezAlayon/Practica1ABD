@@ -10,7 +10,6 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	- Respuesta
 	<img width="199" height="22" alt="image" src="https://github.com/user-attachments/assets/96c5f6fc-afbc-47ea-9306-c8e33d7ea4db" />
 
-	
 ## Creación de usuarios
 1. Crear dos usuarios:
 	- Comando
@@ -21,14 +20,34 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	- Respuesta (misma respuesta para ambos comandos)
 	<img width="154" height="21" alt="image" src="https://github.com/user-attachments/assets/4c1baa81-fd70-4209-bbbc-a66c3754af69" />
 
-2. Crear un rol llamado lectores con permisos únicamente de consulta sobre todas las tablas de la base de datos.
+	Además le di permisos de administrador al usuario admin_biblio
+	<img width="959" height="50" alt="image" src="https://github.com/user-attachments/assets/d40c916a-ecc8-4f3d-aca4-bdc4b8b59fc2" />
+
+	
+3. Crear un rol llamado lectores con permisos únicamente de consulta sobre todas las tablas de la base de datos.
+
 	- Comando
-	```
- 
+	```postgreSQL
+ 	create role lectores;
+ 	grant connect on database biblioteca to lectores;
+ 	grant usage on schema public to lectores;
+    alter default privileges in schema public grant select on tables to lectores;
 	```
 	- Respuesta
+
+
+	<img width="151" height="26" alt="image" src="https://github.com/user-attachments/assets/e3650ba8-2862-4a4e-96eb-019ecb666e7e" />.
  
-3. Asignar el usuario usuario_biblio a este rol.
+ 	<img width="65" height="20" alt="image" src="https://github.com/user-attachments/assets/1f62810d-4e57-4032-844e-24cec0e02e3c" />.
+
+  
+ 	<img width="317" height="23" alt="image" src="https://github.com/user-attachments/assets/6857049b-f904-4dea-b7fe-8829e8c94584" />
+
+
+
+	Primero creo el rol. Garantizo que puedan conectarse, que puedan usar el esquema public y que puedan leer todas las tablas que se creen en el esquema.
+	
+4. Asignar el usuario usuario_biblio a este rol.
 
 	- Comando
 	```
@@ -36,7 +55,7 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	```
 	- Respuesta
  
-4. Consultar las tablas del sistema para listar todos los usuarios creados (pg_roles).
+5. Consultar las tablas del sistema para listar todos los usuarios creados (pg_roles).
 
 	- Comando
 	```
@@ -44,7 +63,7 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	```
 	- Respuesta
  
-5. Cambiar la contraseña del usuario usuario_biblio.
+6. Cambiar la contraseña del usuario usuario_biblio.
 
 	- Comando
 	```
@@ -52,7 +71,7 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	```
 	- Respuesta
  
-6. Configurar permisos de tal forma que el usuario usuario_biblio no pueda eliminar registros en ninguna tabla.
+7. Configurar permisos de tal forma que el usuario usuario_biblio no pueda eliminar registros en ninguna tabla.
 
 	- Comando
 	```
