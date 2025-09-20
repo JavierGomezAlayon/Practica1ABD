@@ -131,36 +131,80 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 ## Inserción de datos
 1. Insertar al menos 5 autores, 8 libros y 5 préstamos de ejemplo.
 	- Comando
+	```SQL
+ 	insert into autores (nombre, nacionalidad) values
+		('Miguel de Cervantes', 'Española'),
+		('Gabriel García Márquez', 'Colombiana'),
+		('Isabel Allende', 'Chilena'),
+		('Federico García Lorca', 'Española'),
+		('Jane Austen', 'Británica'),
+		('Joanne Rowling','Británica');
 	```
- 	
-	```
+  	```sql
+ 	insert into libros (titulo, año_publicacion, id_autor) values
+		('Don Quijote de la Mancha', 1605, 1),
+		('Novelas ejemplares', 1613, 1),
+		('Cien años de soledad', 1967, 2),
+		('El amor en los tiempos del cólera', 1985, 2),
+		('La casa de los espíritus', 1982, 3),
+		('Romancero gitano', 1928, 4),
+		('Orgullo y prejuicio', 1813, 5),
+		('Harry Potter y la piedra filosofal', 1997, 6);
+   	```
+   	```sql
+ 	insert into prestamos (id_libro, fecha_prestamo, fecha_devolucion, usuario_prestatario) values
+		(1, '2025-09-01', '2025-09-15', 'usuario1'),
+		(3, '2025-09-05', null, 'usuario2'),
+		(5, '2025-09-07', '2025-09-14', 'usuario3'),
+		(6, '2025-09-10', null, 'usuario4'),
+		(8, '2025-09-12', '2025-09-19', 'usuario5');
+   	```
 	- Respuesta
+	<img width="146" height="23" alt="image" src="https://github.com/user-attachments/assets/3af9132e-ff96-4cf2-9d86-3cbfa0b812dc" />
+	<img width="142" height="29" alt="image" src="https://github.com/user-attachments/assets/f260e678-75e9-4c8c-ae53-5533ad656082" />
+	<img width="145" height="23" alt="image" src="https://github.com/user-attachments/assets/a68d96e1-789e-47db-96d8-371caa5c9650" />
+
  
 ## Consultas básicas
 1. Listar todos los libros con su autor correspondiente.
 
 	- Comando
 	```
- 
+ 	select titulo,nombre as autor
+	from libros
+	natural join autores;
 	```
 	- Respuesta
+	<img width="813" height="279" alt="image" src="https://github.com/user-attachments/assets/1a92a351-aa69-4bf7-ac23-f00b9ccb0d7e" />
+
  
 2. Mostrar los préstamos que aún no tienen fecha de devolución.
 
 	- Comando
 	```
- 
+ 	select *
+	from prestamos
+	where fecha_devolucion is null;
 	```
 	- Respuesta
+	<img width="1089" height="138" alt="image" src="https://github.com/user-attachments/assets/eb14dbd6-f9e8-4e7c-b749-025febbe20a7" />
  
 3. Obtener los autores que tienen más de un libro registrado.
 
 	- Comando
 	```
- 
+ 	select nombre
+	from autores
+	where id_autor in (
+	    select id_autor
+	    from libros
+	    group by id_autor
+	    having count(*) > 1
+	);
 	```
 	- Respuesta
- 
+ 	<img width="352" height="140" alt="image" src="https://github.com/user-attachments/assets/bcf803dd-e9fb-4358-9b61-dbb4e6070248" />
+
 
 ## Consultas con agregación
 1. Calcular el número total de préstamos realizados.
