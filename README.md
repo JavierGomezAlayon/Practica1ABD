@@ -122,10 +122,18 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
         foreign key (id_libro) references libros (id_libro) on delete cascade
 	);
 	```
+    Después me di cuenta de que necesitaba una condición extra para que la fecha de devolución no fuera anterior a la fecha de prestamo:
+   ```sql
+   alter table prestamos
+	add constraint chk_fechas
+	check (fecha_devolucion is null or fecha_devolucion >= fecha_prestamo);
+   ```
 	- Respuesta (fue la misma respuesta para los tres)
 	<img width="167" height="20" alt="image" src="https://github.com/user-attachments/assets/63214c7a-1669-4e78-abf2-37f0ee98bf7b" />
 
-2. Establecer las claves foráneas correspondientes.
+ 
+
+3. Establecer las claves foráneas correspondientes.
 	Ya se hizo en el comando anterior
 
 ## Inserción de datos
@@ -211,25 +219,32 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 
 	- Comando
 	```
- 
+ 	select count(*)
+	from prestamos;
 	```
 	- Respuesta
- 
+	<img width="111" height="104" alt="image" src="https://github.com/user-attachments/assets/04df909a-588f-4310-9d82-fb9e4104ee0c" />
+
 2. Obtener el número de libros prestados por cada usuario.
 
 	- Comando
 	```
- 
+ 	select count(*)
+	from prestamos
+ 	group by usuario_prestatario;
 	```
 	- Respuesta
- 
+ 	<img width="117" height="206" alt="image" src="https://github.com/user-attachments/assets/1a8842c0-ad6f-46ce-bc33-997227ee3fe4" />
+
 
 ## Modificación de datos
 1. Actualizar la fecha de devolución de un préstamo pendiente.
 
 	- Comando
 	```
- 
+ 	update prestamos
+	set fecha_devolucion = '2025-09-20'
+	where id_prestamo = 4;
 	```
 	- Respuesta
  
@@ -237,16 +252,19 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 
 	- Comando
 	```
- 
+ 	delete from libros
+	where id_libro=1;
+	select * from prestamos;
 	```
 	- Respuesta
- 
+ 	<img width="1085" height="181" alt="image" src="https://github.com/user-attachments/assets/484dc7fc-87b2-406d-a9b8-73470bb095dd" />
+
 ## Creación de vistas
 1. Crear una vista llamada vista_libros_prestados que muestre: título del libro, autor y nombre del prestatario.
 
 	- Comando
 	```
- 
+ 	
 	```
 	- Respuesta
  
