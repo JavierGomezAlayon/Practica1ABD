@@ -51,54 +51,88 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 
 	- Comando
 	```
- 
+ 	grant lectores to usuario_biblio;
 	```
 	- Respuesta
+	<img width="141" height="27" alt="image" src="https://github.com/user-attachments/assets/12330dc5-2937-4b7f-b9ed-3e24501dabc6" />
+
  
 5. Consultar las tablas del sistema para listar todos los usuarios creados (pg_roles).
 
 	- Comando
 	```
- 
+ 	select * from pg_roles;
 	```
 	- Respuesta
- 
+ 	<img width="1279" height="532" alt="image" src="https://github.com/user-attachments/assets/10adf829-234d-4223-a2b1-5f2ee9277c02" />
+
 6. Cambiar la contraseña del usuario usuario_biblio.
 
 	- Comando
 	```
- 
+ 	alter user usuario_biblio with password '123';
 	```
 	- Respuesta
+	<img width="142" height="24" alt="image" src="https://github.com/user-attachments/assets/e5a1b36c-f3fb-4f43-81a9-110e9a399197" />
+
  
 7. Configurar permisos de tal forma que el usuario usuario_biblio no pueda eliminar registros en ninguna tabla.
 
 	- Comando
 	```
- 
+ 	alter default privileges in schema public revoke delete on tables from usuario_biblio;
 	```
 	- Respuesta
- 
+ 	<img width="330" height="23" alt="image" src="https://github.com/user-attachments/assets/a1cde256-cacc-4de8-a756-4fab85a80dbf" />
+	Esto lo que hará es que en las tablas que cree(todavía no he creado ninguna) se ponga de forma por defecto que usuario_biblio no pueda realizar la operación delete en ellas.
     
 ## Creación de tablas
 1. Crear las siguientes tablas con sus respectivas claves primarias:
+
 	1. autores(id_autor, nombre, nacionalidad)
 	2. libros(id_libro, titulo, año_publicacion, id_autor)
 	3. prestamos(id_prestamo, id_libro, fecha_prestamo, fecha_devolucion, usuario_prestatario)
-2. Establecer las claves foráneas correspondientes.
 
 	- Comando
+	```SQL
+ 	create table autores(
+		id_autor serial primary key,
+		nombre varchar(100) not null,
+		nacionalidad varchar(60)
+	);
 	```
- 
+ 	```SQL
+ 	create table libros(
+		id_libro serial primary key,
+		titulo varchar(100) not null,
+  		año_publicacion integer,
+  		id_autor integer not null,
+  		constraint fk_autor
+  			foreign key (id_autor) references autores (id_autor) on delete cascade
+	);
 	```
-	- Respuesta
- 
+  	```SQL
+ 	create table prestamos (
+    id_prestamo serial primary key,
+    id_libro integer not null,
+    fecha_prestamo date not null,
+    fecha_devolucion date,
+    usuario_prestatario varchar(100) not null,
+    constraint fk_libro
+        foreign key (id_libro) references libros (id_libro) on delete cascade
+	);
+	```
+	- Respuesta (fue la misma respuesta para los tres)
+	<img width="167" height="20" alt="image" src="https://github.com/user-attachments/assets/63214c7a-1669-4e78-abf2-37f0ee98bf7b" />
+
+2. Establecer las claves foráneas correspondientes.
+	Ya se hizo en el comando anterior
 
 ## Inserción de datos
 1. Insertar al menos 5 autores, 8 libros y 5 préstamos de ejemplo.
 	- Comando
 	```
- 
+ 	
 	```
 	- Respuesta
  
