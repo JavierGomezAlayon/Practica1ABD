@@ -264,15 +264,19 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 
 	- Comando
 	```
- 	
+ 	create view vista_libros_prestados
+	as select titulo, nombre as autor, usuario_prestatario
+		from prestamos natural join libros natural join autores;
 	```
 	- Respuesta
+	<img width="153" height="29" alt="image" src="https://github.com/user-attachments/assets/1e893cd2-dcf1-4774-b804-22a8b3ea2ca1" />
+
  
 2. Conceder permisos de consulta sobre esta vista únicamente a usuario_biblio.
 
 	- Comando
 	```
- 
+ 	
 	```
 	- Respuesta
  
