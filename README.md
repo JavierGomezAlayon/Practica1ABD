@@ -276,19 +276,28 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 
 	- Comando
 	```
- 	
+ 	grant select on vista_libros_prestados to usuario_biblio;
 	```
 	- Respuesta
- 
+ 	<img width="71" height="24" alt="image" src="https://github.com/user-attachments/assets/79064f36-7bb6-4a51-b4fa-4dae0779b381" />
+
 ## Funciones y consultas avanzadas
 1. Crear una función que reciba el nombre de un autor y devuelva todos los libros escritos por él.
 
 	- Comando
 	```
- 
+ 	create function libros_por_autor(nombre_autor text)
+	returns table (titulo text, año_publicacion integer) as $$
+	begin
+	    return query
+	    select titulo, año_publicacion
+	    from libros natural join autores
+	    where nombre = nombre_autor;
+	end;
+	$$ language plpgsql;
 	```
 	- Respuesta
- 
+ 	
 2. Crear una consulta que devuelva los tres libros más prestados.
 
 	- Comando
