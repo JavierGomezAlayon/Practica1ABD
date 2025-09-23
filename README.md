@@ -287,39 +287,55 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	- Comando
 	```
  	create function libros_por_autor(nombre_autor text)
-	returns table (titulo text, año_publicacion integer) as $$
+	returns table (titulo text, año_publicacion int) as $$
 	begin
 	    return query
-	    select titulo, año_publicacion
-	    from libros natural join autores
-	    where nombre = nombre_autor;
+	    select l.titulo, l.año_publicacion
+	    from libros l
+	    join autores a using(id_autor)
+	    where a.nombre = nombre_autor;
 	end;
 	$$ language plpgsql;
+
 	```
 	- Respuesta
+	<img width="357" height="148" alt="image" src="https://github.com/user-attachments/assets/f4e3df41-0e0f-491d-8431-7ad9b6d91190" />
+
  	
 2. Crear una consulta que devuelva los tres libros más prestados.
 
 	- Comando
 	```
- 
+ 	create or replace function top3_libros_mas_prestados()
+	returns setof text as $$
+	    select l.titulo
+	    from prestamos p
+	    join libros l on p.id_libro = l.id_libro
+	    group by l.id_libro, l.titulo
+	    order by count(p.id_libro) desc
+	    limit 3;
+	$$ language sql;
 	```
 	- Respuesta
+	<img width="365" height="147" alt="image" src="https://github.com/user-attachments/assets/c3b0b73f-1cc7-4c08-bc3b-15e9213db670" />
+
  
 ## Exportación e importación de datos
 1. Exportar el contenido de la tabla libros a un archivo CSV.
 
 	- Comando
+	Debido a que el comando siguiente no me ha funcionado debido a errores con la ruta.
 	```
- 
+ 	copy libros to './libros.csv' with (format csv, header true);
+
 	```
+ 	Al final lo hice con la opción de la interfaz de DBeaver
 	- Respuesta
+	El archivo está subido en la carpeta CSV
  
 2. Importar datos adicionales de autores desde un archivo CSV externo.
     
 	- Comando
-	```
- 
-	```
+	
 	- Respuesta
  
