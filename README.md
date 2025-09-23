@@ -336,6 +336,9 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 2. Importar datos adicionales de autores desde un archivo CSV externo.
     
 	- Comando
-	
+	Utilicé la opción de DBeaver import data sobre la tabla autores:
+	<img width="1349" height="952" alt="image" src="https://github.com/user-attachments/assets/3ab4562e-99d6-4b4d-afec-4baf445fc25b" />
+
 	- Respuesta
- 
+ 	<img width="609" height="284" alt="image" src="https://github.com/user-attachments/assets/a5d1b793-59be-4b43-8d97-6948a508affb" />
+
