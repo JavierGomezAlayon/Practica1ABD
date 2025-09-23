@@ -17,7 +17,7 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
  	CREATE USER admin_biblio WITH PASSWORD '123';
 	CREATE USER usuario_biblio WITH PASSWORD '123';
 	```
-	- Respuesta (misma respuesta para ambos comandos)
+	- Respuesta: (misma respuesta para ambos comandos)
 	<img width="154" height="21" alt="image" src="https://github.com/user-attachments/assets/4c1baa81-fd70-4209-bbbc-a66c3754af69" />
 
 	Además le di permisos de administrador al usuario admin_biblio
@@ -323,19 +323,19 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 ## Exportación e importación de datos
 1. Exportar el contenido de la tabla libros a un archivo CSV.
 
-	- Comando
+	- Comando: 
 	Debido a que el comando siguiente no me ha funcionado debido a errores con la ruta.
 	```
  	copy libros to './libros.csv' with (format csv, header true);
 
 	```
  	Al final lo hice con la opción de la interfaz de DBeaver
-	- Respuesta
+	- Respuesta: 
 	El archivo está subido en la carpeta CSV
  
 2. Importar datos adicionales de autores desde un archivo CSV externo.
     
-	- Comando
+	- Comando: 
 	Utilicé la opción de DBeaver import data sobre la tabla autores:
 	<img width="1349" height="952" alt="image" src="https://github.com/user-attachments/assets/3ab4562e-99d6-4b4d-afec-4baf445fc25b" />
 
