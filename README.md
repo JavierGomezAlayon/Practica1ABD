@@ -331,7 +331,7 @@ En esta práctica voy a ver lo básico de postgreSQL, al crear una pequeña base
 	```
  	Al final lo hice con la opción de la interfaz de DBeaver
 	- Respuesta: 
-	El archivo está subido en la carpeta CSV
+	El archivo está subido en el repositorio.
  
 2. Importar datos adicionales de autores desde un archivo CSV externo.
     
